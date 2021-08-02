@@ -7,12 +7,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
+import os
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///races-database.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
-app.secret_key = "Eden My Love"
+app.secret_key = os.environ.get("SECRET_KEY")
 Bootstrap(app)
 
 
