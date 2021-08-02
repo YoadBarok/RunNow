@@ -1,0 +1,52 @@
+body {
+    background-color: #faf1e6;
+    color: #01937c;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    color: crimson;
+}
+
+.item {
+    padding: 0.5% 3%;
+}
+
+.top-part {
+    background-color: #e5b299;
+}
+
+.my-input {
+    margin: 0.4%;
+}
+
+.reset-div {
+    padding: 1%;
+    text-align: center;
+}
+
+.my-button {
+    background-color: #5F939A;
+    color: white;
+}
+
+.my-button:hover {
+    color: black;
+}
+
+.radio:hover {
+    transform: scale(120%);
+}
+
+.another-button {
+    padding: 2% 2%;
+}
+
+.race-p {
+    padding: 1% 1% 1%;
+}
+
+.add-form {
+    padding: 2% 2%;
+}

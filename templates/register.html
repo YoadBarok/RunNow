@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% import "bootstrap/wtf.html" as wtf %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link href="C:\Users\yoadb\Downloads\Coding\WebDev\bootstrap-5.0.1\dist\css\bootstrap.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+<div class="card top-part">
+    <h1>Register</h1>
+    <div class="add-form">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {{ wtf.quick_form(form, novalidate=True) }}
+    </div>
+</div>
+<div class="card">
+    <a href="{{url_for('home')}}">
+        <button class="btn my-button">Home</button>
+    </a>
+</div>
+
+</body>
+<footer>
+    <div class="copyright">
+        <h6>Made by Yoad Barok 2021</h6>
+    </div>
+</footer>
+</html>
