@@ -42,7 +42,7 @@ class Race(db.Model):
     runner = relationship("User", back_populates="races")
 
 
-# db.create_all()
+db.create_all()
 
 
 @login_manager.user_loader
