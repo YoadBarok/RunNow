@@ -9,6 +9,12 @@ footer {
     color: crimson;
 }
 
+h1 {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 45px;
+}
+
 .item {
     padding: 0.5% 3%;
 }
@@ -23,7 +29,17 @@ footer {
 }
 
 .my-input {
+    display: inline-block;
+    text-align: center;
     margin: 0.4%;
+}
+
+.my-input:hover {
+    transform: scale(105%);
+}
+
+.my-input:focus {
+    transform: scale(105%);
 }
 
 .reset-div {
