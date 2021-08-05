@@ -13,6 +13,7 @@ h1 {
     font-family: sans-serif;
     font-weight: bold;
     font-size: 45px;
+    color: #5F939A;
 }
 
 .item {
@@ -35,11 +36,11 @@ h1 {
 }
 
 .my-input:hover {
-    transform: scale(105%);
+    transform: scale(102%);
 }
 
 .my-input:focus {
-    transform: scale(105%);
+    transform: scale(102%);
 }
 
 .reset-div {
