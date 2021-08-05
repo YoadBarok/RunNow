@@ -1,13 +1,16 @@
 from converter import Converter
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from forms import AddRace, UserForm, LoginForm
+from forms import AddRace, RegisterForm, LoginForm
 from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 import os
+
+
+METHODS = ["GET", "POST"]
 
 
 app = Flask(__name__)
@@ -50,9 +53,8 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-@app.route('/', methods=["POST", "GET"])
+@app.route('/', methods=METHODS)
 def home():
-    render_template('index.html')
     data = request.form
     if request.method == "GET":
         units = ""
@@ -85,9 +87,8 @@ def home():
                                    logged_in=current_user.is_authenticated)
 
 
-@app.route("/races", methods=["GET", "POST"])
+@app.route("/races", methods=METHODS)
 def races():
-    all_races = Race.query.order_by(Race.id).all()
     add_form = AddRace()
     if add_form.validate_on_submit():
         race_name = add_form.race_name.data
@@ -104,13 +105,13 @@ def races():
         db.session.add(new_race)
         db.session.commit()
         return redirect(url_for('races'))
-    return render_template("races.html", form=add_form, races=all_races, user=current_user,
+    return render_template("races.html", form=add_form, user=current_user,
                            logged_in=current_user.is_authenticated)
 
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/register", methods=METHODS)
 def register():
-    form = UserForm()
+    form = RegisterForm()
     if form.validate_on_submit():
         name = form.name.data
         email = form.email.data
@@ -131,7 +132,7 @@ def register():
     return render_template("register.html", form=form)
 
 
-@app.route('/login', methods=["GET", "POST"])
+@app.route('/login', methods=METHODS)
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -164,3 +165,4 @@ def delete_race(race_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+

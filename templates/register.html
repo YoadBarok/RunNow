@@ -2,11 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-    <link href="C:\Users\yoadb\Downloads\Coding\WebDev\bootstrap-5.0.1\dist\css\bootstrap.css" rel="stylesheet"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="static/css/styles.css">
+{% include "header.html" %}
 </head>
 <body>
 <div class="card top-part">
@@ -19,7 +15,7 @@
         {% endfor %}
         {% endif %}
         {% endwith %}
-        {{ wtf.quick_form(form, novalidate=True) }}
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit":"primary"}, extra_classes="form") }}
     </div>
 </div>
 <div class="card">

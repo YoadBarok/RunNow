@@ -17,6 +17,11 @@ footer {
     background-color: #e5b299;
 }
 
+.km-radio {
+    display: inline-block;
+    vertical-align: top;
+}
+
 .my-input {
     margin: 0.4%;
 }
@@ -35,6 +40,10 @@ footer {
     color: black;
 }
 
+.radio {
+    display: inline;
+}
+
 .radio:hover {
     transform: scale(120%);
 }
@@ -47,6 +56,16 @@ footer {
     padding: 1% 1% 1%;
 }
 
-.add-form {
+.form-fields {
+    padding: 1% 1%;
+}
+
+.copyright {
+    padding: 2%;
+}
+
+.form {
     padding: 2% 2%;
+    display: inline-block;
+    size: 50%;
 }
