@@ -36,6 +36,12 @@ footer {
     color: white;
 }
 
+.bottom-button {
+     background-color: #5F939A;
+    color: white;
+    margin-bottom: 2%;
+}
+
 .my-button:hover {
     color: black;
 }
@@ -61,7 +67,8 @@ footer {
 }
 
 .copyright {
-    padding: 2%;
+    bottom: 0px;
+    padding-top: 6% 6%;
 }
 
 .form {
