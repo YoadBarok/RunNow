@@ -5,6 +5,8 @@
 </head>
 <body>
 
+<div class="col-sm-12">
+
 
 <div class="card top-part">
     <h1>Speed Calculator</h1>
@@ -67,7 +69,7 @@
 </div>
 <div class="card">
     <a href="{{url_for('login')}}">
-        <button class="my-button btn btn btn-lg">Login</button>
+        <button class="bottom-button btn btn btn-lg">Login</button>
     </a>
 </div>
 {% endif %}
@@ -79,15 +81,17 @@
     </div>
     <div class="card">
         <a href="{{url_for('logout')}}">
-            <button class="my-button btn btn btn-lg">Logout</button>
+            <button class="bottom-button btn btn btn-lg">Logout</button>
         </a>
     </div>
 {% endif %}
-
+</div>
 </body>
 <footer>
     <div class="copyright">
         <h6>Made by Yoad Barok 2021</h6>
     </div>
+
 </footer>
+
 </html>
