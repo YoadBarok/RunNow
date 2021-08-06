@@ -89,10 +89,12 @@ def home():
 
 @app.route("/races", methods=METHODS)
 def races():
-    add_form = AddRace()
-    if add_form.validate_on_submit():
-        race_name = add_form.race_name.data
-        race_date = add_form.race_date.data
+    # add_form = AddRace()
+    data = request.form
+    # if add_form.validate_on_submit():
+    if request.method == "POST":
+        race_name = data['race-name']
+        race_date = data['race-date']
         for race in current_user.races:
             if race.title == race_name:
                 flash(f"You are already running {race_name}")
@@ -105,7 +107,7 @@ def races():
         db.session.add(new_race)
         db.session.commit()
         return redirect(url_for('races'))
-    return render_template("races.html", form=add_form, user=current_user,
+    return render_template("races.html", user=current_user,
                            logged_in=current_user.is_authenticated)
 
 

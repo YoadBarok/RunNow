@@ -93,3 +93,7 @@ h1 {
     display: inline-block;
     size: 50%;
 }
+
+.home-button {
+    padding: 3%;
+}

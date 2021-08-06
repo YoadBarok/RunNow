@@ -1,11 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, EqualTo, Length
+from wtforms.ext.dateutil.fields import DateField
 
 
 class AddRace(FlaskForm):
     race_name = StringField(label='Race Name', validators=[DataRequired()])
-    race_date = StringField(label='Race Date', validators=[DataRequired()])
+    race_date = DateField(label='Race Date', validators=[DataRequired()])
     submit = SubmitField(label='Add')
 
 
