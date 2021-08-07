@@ -25,4 +25,4 @@ class Converter:
         minutes = float(time.split(":")[0])
         seconds = float(time.split(":")[1])
         total_seconds = minutes * 60 + seconds
-        return total_seconds
+        return total_seconds / 60

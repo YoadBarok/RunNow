@@ -1,7 +1,7 @@
 from converter import Converter
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from forms import AddRace, RegisterForm, LoginForm
+from forms import RegisterForm, LoginForm
 from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user
@@ -56,47 +56,42 @@ def load_user(user_id):
 @app.route('/', methods=METHODS)
 def home():
     data = request.form
-    if request.method == "GET":
-        units = ""
-        return render_template('index.html', units=units, user=current_user, logged_in=current_user.is_authenticated)
-    time = data['time']
-    if data['unit'] == "km":
-        units = "km/h:"
-    else:
-        units = "miles/h:"
-    if data['calculation'] == "speed":
+    if request.method == "POST":
+        time = data['time']
         if ":" in time:
-            time = Converter.convert_to_seconds(time) / 60
-        try:
-            converter = Converter(distance=float(data['distance']), time=float(time))
-            result = converter.convert_to_speed()
-            return render_template('index.html', result=result, units=units, user=current_user,
-                                   logged_in=current_user.is_authenticated)
-        except ValueError:
-            return render_template('index.html', units="Please enter a valid number", user=current_user,
-                                   logged_in=current_user.is_authenticated)
-    else:
-        if ":" in time:
-            time = Converter.convert_to_seconds(time) / 60
+            time = Converter.convert_to_seconds(time)  # Calls a static method, not creating an object.
+        converter = Converter(distance=float(data['distance']), time=float(time))  # Creating the Converter object
         if data['unit'] == "km":
-            units = "mins per km:"
+            units = "km/h:"
         else:
-            units = "mins per mile:"
-        try:
-            converter = Converter(distance=float(data['distance']), time=float(time))
-            result = converter.convert_to_pace()
-            return render_template('index.html', result=result, units=units, user=current_user,
-                                   logged_in=current_user.is_authenticated)
-        except ValueError:
-            return render_template('index.html', units="Please enter a valid number", user=current_user,
-                                   logged_in=current_user.is_authenticated)
+            units = "miles/h:"
+        if data['calculation'] == "speed":
+            try:
+                result = converter.convert_to_speed()
+                return render_template('index.html', result=result, units=units, user=current_user,
+                                       logged_in=current_user.is_authenticated)
+            except ValueError:
+                return render_template('index.html', units="Please enter a valid number", user=current_user,
+                                       logged_in=current_user.is_authenticated)
+        else:
+            if data['unit'] == "km":
+                units = "mins per km:"
+            else:
+                units = "mins per mile:"
+            try:
+                result = converter.convert_to_pace()
+                return render_template('index.html', result=result, units=units, user=current_user,
+                                       logged_in=current_user.is_authenticated)
+            except ValueError:
+                return render_template('index.html', units="Please enter a valid number", user=current_user,
+                                       logged_in=current_user.is_authenticated)
+    units = ""
+    return render_template('index.html', units=units, user=current_user, logged_in=current_user.is_authenticated)
 
 
 @app.route("/races", methods=METHODS)
 def races():
-    # add_form = AddRace()
     data = request.form
-    # if add_form.validate_on_submit():
     if request.method == "POST":
         race_name = data['race-name']
         race_date = data['race-date']
@@ -125,7 +120,6 @@ def register():
         password = generate_password_hash(form.password.data,
                                           method='pbkdf2:sha256',
                                           salt_length=8)
-
         new_user = User(name=name,
                         email=email,
                         password=password)
@@ -172,4 +166,3 @@ def delete_race(race_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
-

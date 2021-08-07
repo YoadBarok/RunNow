@@ -1,79 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% include "header.html" %}
+    {% include "header.html" %}
 </head>
 <body>
 
 <div class="col-sm-12">
 
 
-<div class="card top-part">
-    <h1>Speed Calculator</h1>
-    {% if logged_in %}
-    <h2>Logged in as: {{user.name}}</h2>
-    {% endif %}
-    <form action="{{url_for('home')}}" name="converter" method="post">
-        <div class="container">
-            <div class="row">
-                <div class="km-choice">
-                    <input class="radio" type="radio" name="unit" id="km" value="km" checked="checked">
-                    <label for="km">Km</label>
+    <div class="card top-part">
+        <h1>Speed Calculator</h1>
+        {% if logged_in %}
+        <h2>Logged in as: {{user.name}}</h2>
+        {% endif %}
+        <form action="{{url_for('home')}}" name="converter" method="post">
+            <div class="container">
+                <div class="row">
+                    <div class="km-choice">
+                        <input class="radio" type="radio" name="unit" id="km" value="km" checked="checked">
+                        <label for="km">Km</label>
+                    </div>
                 </div>
+                <div class="row">
+                </div>
+                <input class="radio" type="radio" name="unit" id="miles" value="miles">
+                <label for="miles">Miles</label><br>
             </div>
-            <div class="row">
+            <div class="item">
+
+                <label>Distance: </label><br>
+                <input class="my-input" name="distance" placeholder="Distance"><br>
             </div>
-            <input class="radio" type="radio" name="unit" id="miles" value="miles">
-            <label for="miles">Miles</label><br>
-        </div>
-        <div class="item">
+            <div class="item">
+                <label>Time in mins: </label><br>
+                <input class="my-input" name="time" placeholder="Time"><br>
+            </div>
+            <div class="item">
+                <label for="speed">Speed </label>
+                <input class="radio" type="radio" name="calculation" id="speed" value="speed" checked="checked">
+                <label for="pace">Pace </label>
+                <input class="radio" type="radio" name="calculation" id="pace" value="pace">
+            </div>
+            <div class="item">
+                <button class="my-button btn btn-lg" type="submit">Calculate</button>
+                <br>
+            </div>
+        </form>
 
-            <label>Distance: </label><br>
-            <input class="my-input" name="distance" placeholder="Distance"><br>
-        </div>
-        <div class="item">
-            <label>Time in mins: </label><br>
-            <input class="my-input" name="time" placeholder="Time"><br>
-        </div>
-        <div class="item">
-            <label for="speed">Speed </label>
-            <input class="radio" type="radio" name="calculation" id="speed" value="speed" checked="checked">
-            <label for="pace">Pace </label>
-            <input class="radio" type="radio" name="calculation" id="pace" value="pace">
-        </div>
-        <div class="item">
-            <button class="my-button btn btn-lg" type="submit">Calculate</button> <br>
-        </div>
-    </form>
-
-</div>
+    </div>
 
 
     <!--Result Display-->
-<p class="item">
-<label class="units">{{units}} </label><br>
-<label class="result">{{result}}</label>
+    <p class="item">
+        <label class="units">{{units}} </label><br>
+        <label class="result">{{result}}</label>
 
-    <!--Reset Button-->
-<div class="card">
-    <a href="{{url_for('home')}}">
-        <button class="my-button btn btn btn-lg">Reset</button>
-    </a>
-</div>
-<hr>
-{% if not logged_in %}
-<div class="card another-button">
-    <a href="{{url_for('register')}}">
-        <button class="my-button btn btn btn-lg">Register</button>
-    </a>
-</div>
-<div class="card">
-    <a href="{{url_for('login')}}">
-        <button class="bottom-button btn btn btn-lg">Login</button>
-    </a>
-</div>
-{% endif %}
-{% if logged_in %}
+        <!--Reset Button-->
+    <div class="card">
+        <a href="{{url_for('home')}}">
+            <button class="my-button btn btn btn-lg">Reset</button>
+        </a>
+    </div>
+    <hr>
+    {% if not logged_in %}
+    <div class="card another-button">
+        <a href="{{url_for('register')}}">
+            <button class="my-button btn btn btn-lg">Register</button>
+        </a>
+    </div>
+    <div class="card">
+        <a href="{{url_for('login')}}">
+            <button class="bottom-button btn btn btn-lg">Login</button>
+        </a>
+    </div>
+    {% endif %}
+    {% if logged_in %}
     <div class="card another-button">
         <a href="{{url_for('races')}}">
             <button class="my-button btn btn btn-lg">Upcoming Races</button>
@@ -84,11 +85,11 @@
             <button class="bottom-button btn btn btn-lg">Logout</button>
         </a>
     </div>
-{% endif %}
+    {% endif %}
 </div>
 </body>
 <footer>
-{% include "footer.html" %}
+    {% include "footer.html" %}
 </footer>
 
 </html>
