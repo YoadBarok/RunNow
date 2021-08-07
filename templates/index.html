@@ -11,7 +11,8 @@
 <div class="card top-part">
     <h1>Speed Calculator</h1>
     {% if logged_in %}
-    <h2>Logged in as: {{user.name}}</h2>
+    <h3>Logged in as:</h3>
+    <h3>{{user.name}}</h3>
     {% endif %}
     <form action="{{url_for('home')}}" name="converter" method="post">
         <div class="container">

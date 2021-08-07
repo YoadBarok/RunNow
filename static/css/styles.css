@@ -10,10 +10,17 @@ footer {
 }
 
 h1 {
+    padding-top: 2%;
     font-family: sans-serif;
     font-weight: bold;
-    font-size: 45px;
+    font-size: 50px;
     color: #5F939A;
+}
+
+h3 {
+    margin-bottom: 0.5%;
+    color: #334756;
+    font-weight: bold;
 }
 
 .item {
