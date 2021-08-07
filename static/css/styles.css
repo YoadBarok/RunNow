@@ -103,3 +103,8 @@ h1 {
 .home-button {
     padding: 3%;
 }
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
