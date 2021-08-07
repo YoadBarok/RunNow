@@ -59,13 +59,16 @@ def home():
     if request.method == "GET":
         units = ""
         return render_template('index.html', units=units, user=current_user, logged_in=current_user.is_authenticated)
+    time = data['time']
     if data['unit'] == "km":
         units = "km/h:"
     else:
         units = "miles/h:"
     if data['calculation'] == "speed":
+        if ":" in time:
+            time = Converter.convert_to_seconds(time) / 60
         try:
-            converter = Converter(distance=float(data['distance']), time=float(data['time']))
+            converter = Converter(distance=float(data['distance']), time=float(time))
             result = converter.convert_to_speed()
             return render_template('index.html', result=result, units=units, user=current_user,
                                    logged_in=current_user.is_authenticated)
@@ -73,12 +76,14 @@ def home():
             return render_template('index.html', units="Please enter a valid number", user=current_user,
                                    logged_in=current_user.is_authenticated)
     else:
+        if ":" in time:
+            time = Converter.convert_to_seconds(time) / 60
         if data['unit'] == "km":
             units = "mins per km:"
         else:
             units = "mins per mile:"
         try:
-            converter = Converter(distance=float(data['distance']), time=float(data['time']))
+            converter = Converter(distance=float(data['distance']), time=float(time))
             result = converter.convert_to_pace()
             return render_template('index.html', result=result, units=units, user=current_user,
                                    logged_in=current_user.is_authenticated)

@@ -33,14 +33,20 @@ h1 {
     display: inline-block;
     text-align: center;
     margin: 0.4%;
+    border-radius: 5px;
+    border-width: 0.2px;
 }
 
 .my-input:hover {
     transform: scale(102%);
+    border-radius: 5px;
+    border-width: 0.2px;
 }
 
 .my-input:focus {
     transform: scale(102%);
+    border-radius: 5px;
+    border-width: 0.2px;
 }
 
 .reset-div {

@@ -19,3 +19,10 @@ class Converter:
         else:
             output_pace = f"{math.floor(pace_tuple[0])}:{math.floor(pace_tuple[1])}"
         return output_pace
+
+    @staticmethod
+    def convert_to_seconds(time):
+        minutes = float(time.split(":")[0])
+        seconds = float(time.split(":")[1])
+        total_seconds = minutes * 60 + seconds
+        return total_seconds
