@@ -8,10 +8,10 @@ from flask_login import UserMixin, login_user, LoginManager, current_user, logou
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 import os
+import datetime
 
-
+YEAR = datetime.datetime.now().year
 METHODS = ["GET", "POST"]
-
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///races-database.db")
@@ -19,10 +19,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 app.secret_key = os.environ.get("SECRET_KEY", "Eden My Love")
 Bootstrap(app)
 
-
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 
 db = SQLAlchemy(app)
 
@@ -68,10 +66,10 @@ def home():
         if data['calculation'] == "speed":
             try:
                 result = converter.convert_to_speed()
-                return render_template('index.html', result=result, units=units, user=current_user,
+                return render_template('index.html', result=result, units=units, user=current_user, year=YEAR,
                                        logged_in=current_user.is_authenticated)
             except ValueError:
-                return render_template('index.html', units="Please enter a valid number", user=current_user,
+                return render_template('index.html', units="Please enter a valid number", user=current_user, year=YEAR,
                                        logged_in=current_user.is_authenticated)
         else:
             if data['unit'] == "km":
@@ -80,13 +78,14 @@ def home():
                 units = "mins per mile:"
             try:
                 result = converter.convert_to_pace()
-                return render_template('index.html', result=result, units=units, user=current_user,
+                return render_template('index.html', result=result, units=units, user=current_user, year=YEAR,
                                        logged_in=current_user.is_authenticated)
             except ValueError:
-                return render_template('index.html', units="Please enter a valid number", user=current_user,
+                return render_template('index.html', units="Please enter a valid number", user=current_user, year=YEAR,
                                        logged_in=current_user.is_authenticated)
     units = ""
-    return render_template('index.html', units=units, user=current_user, logged_in=current_user.is_authenticated)
+    return render_template('index.html', units=units, user=current_user, year=YEAR,
+                           logged_in=current_user.is_authenticated)
 
 
 @app.route("/races", methods=METHODS)
@@ -107,7 +106,7 @@ def races():
         db.session.add(new_race)
         db.session.commit()
         return redirect(url_for('races'))
-    return render_template("races.html", user=current_user,
+    return render_template("races.html", user=current_user, year=YEAR,
                            logged_in=current_user.is_authenticated)
 
 
@@ -130,7 +129,7 @@ def register():
         db.session.commit()
         login_user(new_user)
         return redirect(url_for("home"))
-    return render_template("register.html", form=form)
+    return render_template("register.html", form=form, year=YEAR)
 
 
 @app.route('/login', methods=METHODS)
@@ -147,7 +146,7 @@ def login():
         else:
             flash("incorrect email/password")
             return redirect(url_for("login"))
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=form, year=YEAR)
 
 
 @app.route('/logout')

@@ -56,8 +56,10 @@ h3 {
     border-width: 0.2px;
 }
 
-.reset-div {
-    padding: 1%;
+.reset-button {
+    position: relative;
+    bottom: 60px;
+    margin-bottom: 1%;
     text-align: center;
 }
 
@@ -67,7 +69,7 @@ h3 {
 }
 
 .bottom-button {
-     background-color: #5F939A;
+    background-color: #5F939A;
     color: white;
     margin-bottom: 2%;
 }
@@ -97,8 +99,12 @@ h3 {
 }
 
 .copyright {
+    position: absolute;
+    width: 300px;
+    left:50%;
     bottom: 0px;
-    padding-top: 6% 6%;
+    margin-left:-150px;
+    padding-top: 6%;
 }
 
 .form {
@@ -114,4 +120,9 @@ h3 {
 .col-centered {
     float: none;
     margin: 0 auto;
+}
+
+.logout {
+    position: relative;
+    top: 50px;
 }

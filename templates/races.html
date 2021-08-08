@@ -5,43 +5,45 @@
     {% include "header.html" %}
 </head>
 <body>
-<div class="card top-part">
-    <h1>Upcoming Races:</h1>
-    <div class="card">
-        {% for race in current_user.races %}
-        <p class="race-p">{{race.date}} - {{race.title}} <a href="{{url_for('delete_race', race_id=race.id) }}">✘</a>
-        </p>
-        {% endfor %}
+<div class="col-sm-12">
+    <div class="card top-part">
+        <h1>Upcoming Races:</h1>
+        <div class="card">
+            {% for race in current_user.races %}
+            <p class="race-p">{{race.date}} - {{race.title}} <a
+                    href="{{url_for('delete_race', race_id=race.id) }}">✘</a>
+            </p>
+            {% endfor %}
 
+        </div>
+        <div class="add-form">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <form action="{{url_for('races')}}" name="race-adder" method="post">
+                <label style="margin-top: 2%;">Race Name: </label>
+                <br>
+                <input type="text" name="race-name" required class="my-input">
+                <br>
+                <label>Race Date: </label>
+                <br>
+                <input type="date" required name="race-date" class="my-input">
+                <br>
+                <input type="submit" class="btn btn-md my-button" style="margin:2%;">
+            </form>
+
+        </div>
     </div>
-    <div class="add-form">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-        <form action="{{url_for('races')}}" name="race-adder" method="post">
-            <label style="margin-top: 2%;">Race Name: </label>
-            <br>
-            <input type="text" name="race-name" required class="my-input">
-            <br>
-            <label>Race Date: </label>
-            <br>
-            <input type="date" required name="race-date" class="my-input">
-            <br>
-            <input type="submit" class="btn btn-md my-button" style="margin:2%;">
-        </form>
-
+    <div class="card home-button">
+        <a href="{{url_for('home')}}">
+            <button class="btn my-button">Home</button>
+        </a>
     </div>
 </div>
-<div class="card home-button">
-    <a href="{{url_for('home')}}">
-        <button class="btn my-button">Home</button>
-    </a>
-</div>
-
 </body>
 <footer>
     {% include "footer.html" %}

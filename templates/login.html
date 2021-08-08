@@ -5,25 +5,26 @@
     {% include "header.html" %}
 </head>
 <body>
-<div class="card top-part">
-    <h1>Login</h1>
-    <div class="add-form">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-        {{ wtf.quick_form(form, novalidate=True, button_map={"submit":"primary"}, extra_classes="form") }}
+<div class="col-sm-12">
+    <div class="card top-part">
+        <h1>Login</h1>
+        <div class="add-form">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {{ wtf.quick_form(form, novalidate=True, button_map={"submit":"primary"}, extra_classes="form") }}
+        </div>
+    </div>
+    <div class="card">
+        <a href="{{url_for('home')}}">
+            <button class="btn my-button">Home</button>
+        </a>
     </div>
 </div>
-<div class="card">
-    <a href="{{url_for('home')}}">
-        <button class="btn my-button">Home</button>
-    </a>
-</div>
-
 </body>
 <footer>
     {% include "footer.html" %}
