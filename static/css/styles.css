@@ -75,6 +75,7 @@ h6 {
 }
 
 .my-button {
+
     background-color: #5F939A;
     color: white;
 }
@@ -98,6 +99,7 @@ h6 {
 }
 
 .another-button {
+    margin: 2%;
     padding: 2% 2%;
 }
 
@@ -113,7 +115,7 @@ h6 {
     position: absolute;
     width: 300px;
     left:50%;
-    top: 100%;
+    bottom: 1%;
     margin-left:-150px;
 }
 
@@ -129,9 +131,10 @@ h6 {
 
 
 .upcoming-race {
-    padding: 3%;
+    margin: 3%;
 }
 
 .footer {
+
     padding-top: 2%;
 }
