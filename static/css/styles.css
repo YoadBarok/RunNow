@@ -52,12 +52,6 @@ h6 {
     border-width: 0.2px;
 }
 
-.my-input:hover {
-    transform: scale(102%);
-    border-radius: 5px;
-    border-width: 0.2px;
-}
-
 .my-input:focus {
     transform: scale(102%);
     border-radius: 5px;
