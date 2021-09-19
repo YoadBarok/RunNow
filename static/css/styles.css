@@ -110,14 +110,6 @@ h6 {
     padding: 1% 1%;
 }
 
-.copyright {
-    position: absolute;
-    width: 300px;
-    left:50%;
-    bottom: 1%;
-    margin-left:-150px;
-}
-
 .form {
     padding: 2% 2%;
     display: inline-block;
@@ -134,6 +126,10 @@ h6 {
 }
 
 .footer {
-
+    position: absolute;
+    width: 300px;
+    left:50%;
+    margin-left:-150px;
+    bottom: 1px;
     padding-top: 2%;
 }
