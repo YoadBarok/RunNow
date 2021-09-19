@@ -5,12 +5,12 @@
 </head>
 <body>
 
-<div class="col-sm-12">
+
     <div class="card top-part">
         <h1>Speed Calculator</h1>
         {% if logged_in %}
         <h3>Logged in as:</h3>
-        <h3>{{user.name}}</h3>
+        <h3>{{user.name.capitalize()}}</h3>
         {% endif %}
         <form action="{{url_for('home')}}" name="converter" method="post">
             <div class="container">
@@ -57,24 +57,23 @@
         <!--Reset Button-->
     <div class="card reset-button">
         <a href="{{url_for('home')}}">
-            <button class="my-button btn btn btn-lg">Reset</button>
+            <button class="my-button btn btn-lg">Reset</button>
         </a>
         <!--Races Button (if logged in)-->
         {% if logged_in %}
-        <div class="card another-button">
+        <div class="upcoming-race">
             <a href="{{url_for('races')}}">
                 <button class="my-button btn btn btn-lg">Upcoming Races</button>
             </a>
         </div>
         <!--Logout Button (if logged in-->
-        <div class="card logout">
+        <div>
             <a href="{{url_for('logout')}}">
-                <button class="bottom-button btn btn btn-lg">Logout</button>
+                <button class="bottom-button btn btn btn-lg logout">Logout</button>
             </a>
         </div>
         {% endif %}
     </div>
-    <hr>
     <!--Register & Login buttons if not logged in-->
     {% if not logged_in %}
     <div class="card another-button">
@@ -89,9 +88,8 @@
     </div>
     {% endif %}
 
-</div>
 </body>
-<footer>
+<footer class="footer">
     {% include "footer.html" %}
 </footer>
 

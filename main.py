@@ -1,5 +1,5 @@
 from converter import Converter
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from forms import RegisterForm, LoginForm
 from flask_bootstrap import Bootstrap
@@ -19,8 +19,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 app.secret_key = os.environ.get("SECRET_KEY", "Eden My Love")
 Bootstrap(app)
 
-login_manager = LoginManager()
-login_manager.init_app(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.refresh_view = 'relogin'
+login_manager.needs_refresh_message = u"Session timed out, please login again"
+login_manager.needs_refresh_message_category = "info"
 
 db = SQLAlchemy(app)
 
@@ -46,6 +49,12 @@ class Race(db.Model):
 db.create_all()
 
 
+@app.before_request
+def before_request():
+    session.permanent = True
+    app.permanent_session_lifetime = datetime.timedelta(minutes=10)
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -55,34 +64,38 @@ def load_user(user_id):
 def home():
     data = request.form
     if request.method == "POST":
-        time = data['time']
-        if ":" in time:
-            time = Converter.convert_to_seconds(time)  # Calls a static method, not creating an object.
-        converter = Converter(distance=float(data['distance']), time=float(time))  # Creating the Converter object
-        if data['unit'] == "km":
-            units = "km/h:"
-        else:
-            units = "miles/h:"
-        if data['calculation'] == "speed":
-            try:
-                result = converter.convert_to_speed()
-                return render_template('index.html', result=result, units=units, user=current_user, year=YEAR,
-                                       logged_in=current_user.is_authenticated)
-            except ValueError:
-                return render_template('index.html', units="Please enter a valid number", user=current_user, year=YEAR,
-                                       logged_in=current_user.is_authenticated)
-        else:
+        try:
+            time = data['time']
+            if ":" in time:
+                time = Converter.convert_to_seconds(time)  # Calls a static method, not creating an object.
+            converter = Converter(distance=float(data['distance']), time=float(time))  # Creating the Converter object
             if data['unit'] == "km":
-                units = "mins per km:"
+                units = "km/h:"
             else:
-                units = "mins per mile:"
-            try:
-                result = converter.convert_to_pace()
-                return render_template('index.html', result=result, units=units, user=current_user, year=YEAR,
-                                       logged_in=current_user.is_authenticated)
-            except ValueError:
-                return render_template('index.html', units="Please enter a valid number", user=current_user, year=YEAR,
-                                       logged_in=current_user.is_authenticated)
+                units = "miles/h:"
+            if data['calculation'] == "speed":
+                try:
+                    result = converter.convert_to_speed()
+                    return render_template('index.html', result=result, units=units, user=current_user, year=YEAR,
+                                           logged_in=current_user.is_authenticated)
+                except ValueError:
+                    return render_template('index.html', units="Please enter a valid number", user=current_user, year=YEAR,
+                                           logged_in=current_user.is_authenticated)
+            else:
+                if data['unit'] == "km":
+                    units = "mins per km:"
+                else:
+                    units = "mins per mile:"
+                try:
+                    result = converter.convert_to_pace()
+                    return render_template('index.html', result=result, units=units, user=current_user, year=YEAR,
+                                           logged_in=current_user.is_authenticated)
+                except ValueError:
+                    return render_template('index.html', units="Please enter a valid number", user=current_user, year=YEAR,
+                                           logged_in=current_user.is_authenticated)
+        except ValueError:
+            return render_template('index.html', units="Calculate what? You left the fields empty...", user=current_user, year=YEAR,
+                                   logged_in=current_user.is_authenticated)
     units = ""
     return render_template('index.html', units=units, user=current_user, year=YEAR,
                            logged_in=current_user.is_authenticated)
