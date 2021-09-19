@@ -64,6 +64,10 @@ h6 {
     border-width: 0.2px;
 }
 
+.results-display {
+    margin: 1%;
+}
+
 .reset-button {
     position: relative;
     margin-bottom: 1%;
